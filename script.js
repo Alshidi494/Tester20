@@ -1,23 +1,12 @@
-// تحقق من توفر Telegram Web Apps API
+// التحقق من أن Telegram Web App متاح
 if (window.Telegram.WebApp) {
-  const tg = window.Telegram.WebApp;
-
-  // افتح Web App تلقائيًا
-  tg.ready();
-
   // الحصول على بيانات المستخدم
-  const user = tg.initDataUnsafe?.user;
+  const user = Telegram.WebApp.initDataUnsafe.user;
 
+  // عرض اسم المستخدم
   if (user) {
-    // عرض اسم المستخدم
-    document.getElementById("username").textContent = user.first_name || "User";
+      document.getElementById("username").innerText = `مرحبًا، ${user.username || user.first_name}!`;
+  } else {
+      document.getElementById("username").innerText = "مرحبًا، لم يتم العثور على اسم المستخدم!";
   }
-
-  // زر الإجراء
-  document.getElementById("actionButton").addEventListener("click", () => {
-    tg.sendData("Action performed!"); // إرسال بيانات إلى البوت
-    alert("Action sent to the bot!");
-  });
-} else {
-  alert("Telegram Web Apps API is not available.");
 }
