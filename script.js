@@ -1,12 +1,12 @@
-// التحقق من أن Telegram Web App متاح
-if (window.Telegram.WebApp) {
-  // الحصول على بيانات المستخدم
+if (window.Telegram && window.Telegram.WebApp) {
   const user = Telegram.WebApp.initDataUnsafe.user;
 
-  // عرض اسم المستخدم
   if (user) {
-      document.getElementById("username").innerText = `مرحبًا، ${user.username || user.first_name}!`;
+      const username = user.username || user.first_name || "مستخدم مجهول";
+      document.getElementById("username").innerText = `مرحبًا، ${username}!`;
   } else {
-      document.getElementById("username").innerText = "مرحبًا، لم يتم العثور على اسم المستخدم!";
+      document.getElementById("username").innerText = "لم يتم العثور على بيانات المستخدم.";
   }
+} else {
+  document.getElementById("username").innerText = "يرجى فتح التطبيق داخل Telegram.";
 }
