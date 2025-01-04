@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Mini App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #manual-input {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <h1 id="username">مرحبًا!</h1>
+    <div id="manual-input">
+        <p>لم يتم العثور على حساب Telegram. يرجى إدخال اسم المستخدم يدويًا:</p>
+        <input type="text" id="manual-username" placeholder="اسم المستخدم">
+        <button onclick="saveUsername()">حفظ</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
