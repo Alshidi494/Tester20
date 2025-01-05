@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق Mini App</title>
+    <title>تسجيل الدخول باستخدام Telegram</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1 id="greeting">مرحبًا!</h1>
-        <p id="instructions">يرجى الانتظار أثناء تحميل بيانات حسابك...</p>
-        <div id="manual-input" class="hidden">
-            <p>لم يتم العثور على حساب Telegram. يرجى إدخال اسم المستخدم يدويًا:</p>
-            <input type="text" id="manual-username" placeholder="اسم المستخدم">
-            <button onclick="saveUsername()">حفظ</button>
+        <h1>مرحبًا بك!</h1>
+        <p>قم بتسجيل الدخول باستخدام Telegram للوصول إلى التطبيق.</p>
+        <div id="telegram-login">
+            <!-- زر تسجيل الدخول سيتم إضافته هنا -->
+            <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                    data-telegram-login="tests20G_bot" 
+                    data-size="large" 
+                    data-onauth="onTelegramAuth(user)" 
+                    data-request-access="write"></script>
+        </div>
+        <div id="user-info" class="hidden">
+            <!-- سيتم عرض بيانات المستخدم هنا -->
         </div>
     </div>
     <script src="script.js"></script>
