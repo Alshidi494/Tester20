@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Telegram Mini App</title>
   <script>
-    // التحقق من أن WebApp متاح
-    if (window.Telegram.WebApp) {
-      // جلب بيانات المستخدم
-      const user = window.Telegram.WebApp.initDataUnsafe.user;
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.Telegram.WebApp) {
+        const user = window.Telegram.WebApp.initDataUnsafe?.user;
+        const userInfo = document.getElementById("user-info");
 
-      // التحقق إذا كانت البيانات متاحة
-      if (user) {
-        // عرض اسم المستخدم أو الاسم الكامل
-        document.addEventListener("DOMContentLoaded", () => {
-          const userInfo = document.getElementById("user-info");
-          userInfo.textContent = `مرحبًا، ${user.username || user.first_name}!`;
-        });
+        if (user) {
+          userInfo.textContent = `مرحبًا، ${user.username || user.first_name || "مستخدم مجهول"}!`;
+        } else {
+          userInfo.textContent = "تعذر جلب بيانات المستخدم.";
+        }
       } else {
-        console.log("لم يتم العثور على بيانات المستخدم.");
+        console.error("Telegram WebApp غير متاح.");
       }
-    } else {
-      console.error("Telegram WebApp غير متاح.");
-    }
+    });
   </script>
 </head>
 <body>
