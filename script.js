@@ -1,14 +1,29 @@
-function onTelegramAuth(user) {
-  // إخفاء زر تسجيل الدخول
-  document.getElementById("telegram-login").classList.add("hidden");
+// التحقق من وجود Telegram WebApp
+if (window.Telegram && window.Telegram.WebApp) {
+  // تسجيل بيانات WebApp في Console
+  console.log("Raw Init Data:", Telegram.WebApp.initData);
+  console.log("Parsed Init Data:", Telegram.WebApp.initDataUnsafe);
 
-  // عرض بيانات المستخدم
-  const userInfo = `
-      <h2>مرحبًا، ${user.first_name} ${user.last_name || ''}!</h2>
-      <p><strong>معرف المستخدم:</strong> ${user.id}</p>
-      <p><strong>اسم المستخدم:</strong> ${user.username ? '@' + user.username : 'غير متوفر'}</p>
-  `;
-  const userInfoDiv = document.getElementById("user-info");
-  userInfoDiv.innerHTML = userInfo;
-  userInfoDiv.classList.remove("hidden");
+  const user = Telegram.WebApp.initDataUnsafe.user;
+
+  if (user) {
+      const username = user.username || user.first_name || "مستخدم مجهول";
+      document.getElementById("greeting").innerText = `مرحبًا، ${username}!`;
+  } else {
+      console.log("لم يتم العثور على بيانات المستخدم. عرض الإدخال اليدوي.");
+      document.getElementById("manual-input").classList.remove("hidden");
+  }
+} else {
+  console.error("Telegram WebApp غير مهيأ. عرض الإدخال اليدوي.");
+  document.getElementById("manual-input").classList.remove("hidden");
+}
+
+// حفظ اسم المستخدم المدخل يدويًا
+function saveUsername() {
+  const manualUsername = document.getElementById("manual-username").value;
+  if (manualUsername.trim() !== "") {
+      document.getElementById("greeting").innerText = `مرحبًا، ${manualUsername}!`;
+  } else {
+      alert("يرجى إدخال اسم مستخدم صالح.");
+  }
 }
