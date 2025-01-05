@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Mini App</title>
+  <script>
+    // التحقق من أن WebApp متاح
+    if (window.Telegram.WebApp) {
+      // جلب بيانات المستخدم
+      const user = window.Telegram.WebApp.initDataUnsafe.user;
+
+      // التحقق إذا كانت البيانات متاحة
+      if (user) {
+        // عرض اسم المستخدم أو الاسم الكامل
+        document.addEventListener("DOMContentLoaded", () => {
+          const userInfo = document.getElementById("user-info");
+          userInfo.textContent = `مرحبًا، ${user.username || user.first_name}!`;
+        });
+      } else {
+        console.log("لم يتم العثور على بيانات المستخدم.");
+      }
+    } else {
+      console.error("Telegram WebApp غير متاح.");
+    }
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1 id="greeting">مرحبًا بك في Mini App!</h1>
-        <div id="manual-input" class="hidden">
-            <input type="text" id="manual-username" placeholder="أدخل اسم المستخدم">
-            <button onclick="saveUsername()">حفظ</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+  <h1 id="user-info">جارٍ تحميل البيانات...</h1>
 </body>
 </html>
